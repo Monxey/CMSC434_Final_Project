@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=960, initial-scale=1.0">
+    <title>Health App</title>
+    <link rel="stylesheet" href="HealthAppStyle.css">
+    <script src="HealthAppJS.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Health App</h1>
+        </header>
+        <nav>
+            <button onclick="showTab('home')" class="active">
+                <img src="images/home.png" alt="Home" class="nav-icon">
+            </button>
+            <button onclick="showTab('profile')">
+                <img src="images/profile.png" alt="Profile" class="nav-icon">
+            </button>
+            <button onclick="showTab('goals')">
+                <img src="images/goals.png" alt="Goals" class="nav-icon">
+            </button>
+            <button onclick="showTab('fitness')">
+                <img src="images/fitness.png" alt="Fitness" class="nav-icon">
+            </button>
+        </nav>
+        <main>
+            <div id="home" class="tab">
+                <h2>Welcome to the Health App</h2>
+                <p>This app will guide you on your fitness journey. Whether you are a beginner, intermediate, or expert user, we will fulfill your needs. Lets begin this journey by filling out your profile.</p>
+                <button onclick="showTab('profile')">Set Up Your Profile</button>
+            </div>
+            <div id="profile" class="tab" style="display:none;">
+                <h2>Profile</h2>
+                <form id="profileForm">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age">
+                    <label for="weight">Weight (lbs):</label>
+                    <input type="number" id="weight" name="weight">
+                    <label for="height">Height (ft):</label>
+                    <input type="number" id="height_ft" name="height_ft">
+                    <label for="height">Height (in):</label>
+                    <input type="number" id="height_in" name="height_in">
+                    <button type="button" onclick="saveProfile()">Save</button>
+                </form>
+            </div>
+            <div id="goals" class="tab" style="display:none;">
+                <h2>Goals</h2>
+                <form id="goalForm">
+                    <label for="goalDescription">Goal Description:</label>
+                    <input type="text" id="goalDescription" name="goalDescription">
+                    <label for="goalDate">Final Date:</label>
+                    <input type="date" id="goalDate" name="goalDate">
+                    <button type="button" onclick="addGoal()">Add Goal</button>
+                </form>
+                <ul id="goalList"></ul>
+            </div>
+            <div id="fitness" class="tab" style="display:none;">
+                <h2>Fitness</h2>
+                <form id="fitnessForm">
+                    <label for="exercise">Exercise:</label>
+                    <input type="text" id="exercise" name="exercise">
+                    <label for="sets">Sets:</label>
+                    <input type="number" id="sets" name="sets">
+                    <label for="reps">Reps:</label>
+                    <input type="number" id="reps" name="reps">
+                    <label for="weightUsed">Weight (lbs):</label>
+                    <input type="number" id="weightUsed" name="weightUsed">
+                    <button type="button" onclick="addExercise()">Add Exercise</button>
+                </form>
+                <h3>Cardio</h3>
+                <label for="distance">Distance (miles):</label>
+                <input type="number" id="distance" name="distance">
+                <button type="button" onclick="logDistance()">Log Distance</button>
+                <ul id="fitnessList"></ul>
+                <ul id="distanceList"></ul>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

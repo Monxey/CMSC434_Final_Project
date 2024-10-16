@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3a4738;
+    margin: auto;
+    padding: 0;
+    width: 640px;
+}
+
+.container {
+    max-width: 640px;
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    background-color: #2a642c;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+.nav-icon {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #5e795b;
+    padding: 2px;
+}
+
+nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px; /* Adjust width as needed */
+    height: 80px; /* Adjust height as needed */
+    box-sizing: content-box;
+}
+
+nav button.active {
+    background-color: #6b8a68;
+}
+
+nav button:active {
+    background-color: #6b8a68;
+    transform: scale(0.95);
+}
+
+nav button:hover {
+    background-color: #6b8a68;
+}
+
+main {
+    padding: 20px;
+}
+
+.tab {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"], input[type="number"], input[type="date"] {
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.complete-button {
+    padding: 10px;
+    background-color: #ffffff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background: #ddd;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
