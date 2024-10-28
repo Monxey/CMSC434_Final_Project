@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=960, initial-scale=1.0">
+    <meta name="viewport" content="width=640, initial-scale=1.0">
     <title>Health App</title>
     <link rel="stylesheet" href="HealthAppStyle.css">
     <script src="HealthAppJS.js"></script>
@@ -10,29 +10,23 @@
 <body>
     <div class="container">
         <header>
-            <h1>Health App</h1>
         </header>
         <nav>
-            <button onclick="showTab('home')" class="active">
-                <img src="images/home.png" alt="Home" class="nav-icon">
-            </button>
-            <button onclick="showTab('profile')">
-                <img src="images/profile.png" alt="Profile" class="nav-icon">
+            <button onclick="showTab('profile')" class="active">
+                <img src="images/profile.png" alt="profile" class="nav-icon">
             </button>
             <button onclick="showTab('goals')">
-                <img src="images/goals.png" alt="Goals" class="nav-icon">
+                <img src="images/goals.png" alt="goals" class="nav-icon">
             </button>
             <button onclick="showTab('fitness')">
-                <img src="images/fitness.png" alt="Fitness" class="nav-icon">
+                <img src="images/fitness.png" alt="fitness" class="nav-icon">
+            </button>
+            <button onclick="showTab('diet')">
+                <img src="images/diet.png" alt="diet" class="nav-icon">
             </button>
         </nav>
         <main>
-            <div id="home" class="tab">
-                <h2>Welcome to the Health App</h2>
-                <p>This app will guide you on your fitness journey. Whether you are a beginner, intermediate, or expert user, we will fulfill your needs. Lets begin this journey by filling out your profile.</p>
-                <button onclick="showTab('profile')">Set Up Your Profile</button>
-            </div>
-            <div id="profile" class="tab" style="display:none;">
+            <div id="profile" class="tab" style="display:block;">
                 <h2>Profile</h2>
                 <form id="profileForm">
                     <label for="name">Name:</label>
@@ -78,6 +72,14 @@
                 <button type="button" onclick="logDistance()">Log Distance</button>
                 <ul id="fitnessList"></ul>
                 <ul id="distanceList"></ul>
+            </div>
+            <div id="diet" class="tab" style="display:none;">
+                <h2>Breakfast</h2>
+                <button type="button" onclick="">Add Meal</button>
+                <h2>Lunch</h2>
+                <button type="button" onclick="">Add Meal</button>
+                <h2>Dinner</h2>
+                <button type="button" onclick="">Add Meal</button>
             </div>
         </main>
     </div>

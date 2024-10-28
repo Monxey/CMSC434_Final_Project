@@ -1,24 +1,32 @@
+/* Color Palette:
+Neptune_1: #78b4ba
+Neptune_2: #84bdbc
+Shadow Green: #94c2b1
+Spring Rain: #b1c8b6
+Swamp Green: #b0bd99
+White: ffffff
+*/
 body {
     font-family: Arial, sans-serif;
-    background-color: #3a4738;
+    background-color: #000000;
     margin: auto;
     padding: 0;
-    width: 640px;
 }
 
 .container {
-    max-width: 640px;
+    width: 540px;
+    height: 960px;
     margin: auto;
-    background: white;
+    background: #ffffff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header {
-    background-color: #2a642c;
+    background-color: #78b4ba;
     color: white;
-    padding: 15px;
+    padding: 6px;
     text-align: center;
 }
 
@@ -32,7 +40,7 @@ header {
 nav {
     display: flex;
     justify-content: space-around;
-    background-color: #5e795b;
+    background-color: #84bdbc;
     padding: 2px;
 }
 
@@ -50,16 +58,16 @@ nav button {
 }
 
 nav button.active {
-    background-color: #6b8a68;
+    background-color: #78b4ba;
 }
 
 nav button:active {
-    background-color: #6b8a68;
+    background-color: #78b4ba;
     transform: scale(0.95);
 }
 
 nav button:hover {
-    background-color: #6b8a68;
+    background-color: #78b4ba;
 }
 
 main {
@@ -93,7 +101,7 @@ input[type="text"], input[type="number"], input[type="date"] {
 
 button {
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #84bdbc;
     color: white;
     border: none;
     cursor: pointer;
@@ -101,7 +109,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #78b4ba;
 }
 
 ul {

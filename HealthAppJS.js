@@ -7,7 +7,7 @@ function showTab(tabName) {
     });
     document.getElementById(tabName).style.display = 'block';
     document.querySelectorAll('nav button').forEach(button => {
-        if (button.onclick.toString().includes(tabName)) button.classList.add('active')
+            if (button.querySelector(".nav-icon").getAttribute("alt") == tabName) button.classList.add("active");
     })
 }
 
@@ -56,4 +56,3 @@ function logDistance() {
 
 // Show the Profile tab by default
 showTab('profile');
-showTab('home');
