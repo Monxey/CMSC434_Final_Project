@@ -100,12 +100,12 @@ input[type="text"], input[type="number"], input[type="date"] {
 }
 
 button {
-    padding: 10px;
+    padding: 15px;
     background-color: #84bdbc;
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
+    margin: 5px;
 }
 
 button:hover {
@@ -123,4 +123,13 @@ li {
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
+}
+
+#water-progress {
+    width: 500px; /* Increase width */
+    height: 50px; /* Increase height */
+}
+
+label {
+    margin: 5px;
 }

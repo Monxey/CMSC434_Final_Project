@@ -80,6 +80,16 @@
                 <button type="button" onclick="">Add Meal</button>
                 <h2>Dinner</h2>
                 <button type="button" onclick="">Add Meal</button>
+                <h2 style="text-align: center;">Today's Water Intake</h2>
+                <label for="waterIntake" style="text-align: center;" >Ounces (oz):</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="waterIntake" name="waterIntake"> 
+                    <button type="button" onclick="">Add</button>
+                </div>
+                <div style="display: block;">
+                    <label for="water-progress" style="text-align: center; " >progress: </label>
+                    <progress id = "water-progress" value="0" max="128"></progress>
+                </div>
             </div>
         </main>
     </div>
