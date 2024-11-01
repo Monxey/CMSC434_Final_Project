@@ -9,6 +9,8 @@ function showTab(tabName) {
     document.querySelectorAll('nav button').forEach(button => {
             if (button.querySelector(".nav-icon").getAttribute("alt") == tabName) button.classList.add("active");
     })
+
+    if (tabName = "progress") {progressChart();}
 }
 
 function saveProfile() {
@@ -52,6 +54,54 @@ function logDistance() {
     li.textContent = `Distance: ${distance} miles`;
     distanceList.appendChild(li);
     document.getElementById('distance').value = '';
+}
+
+function progressChart() {
+
+    const xyValues = [
+        {x:10, y:10},
+        {x:20, y:20},
+        {x:30, y:25},
+        {x:40, y:30},
+        {x:50, y:40},
+        {x:60, y:45},
+        {x:70, y:50},
+        {x:80, y:60},
+        {x:90, y:65},
+        {x:95, y:70},
+        {x:100, y:80}
+    ];
+      
+    new Chart("progressChart", {
+
+        type: "scatter",
+        data: {
+          datasets: [{
+            pointRadius: 4,
+            pointBackgroundColor: "rgb(0,0,255)",
+            data: xyValues
+          }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Progress Chart', // Chart title
+                    /* Personal styling of chart title */
+                    color: 'green',
+                    font: {
+                        weight: 'bold',
+                        size: 24
+                    }
+                }
+            },
+            legend: {display: true},
+            scales: {
+                xAxes: [{ticks: {min: 0, max:100}}],
+                yAxes: [{ticks: {min: 0, max:100}}],
+            }
+        }
+    });
 }
 
 // Show the Profile tab by default

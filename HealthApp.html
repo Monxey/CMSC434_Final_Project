@@ -6,6 +6,7 @@
     <title>Health App</title>
     <link rel="stylesheet" href="HealthAppStyle.css">
     <script src="HealthAppJS.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,6 +24,9 @@
             </button>
             <button onclick="showTab('diet')">
                 <img src="images/diet.png" alt="diet" class="nav-icon">
+            </button>
+            <button onclick="showTab('progress')">
+                <img src="images/progress.png" alt="progress" class="nav-icon">
             </button>
         </nav>
         <main>
@@ -90,6 +94,17 @@
                     <label for="water-progress" style="text-align: center; " >progress: </label>
                     <progress id = "water-progress" value="0" max="128"></progress>
                 </div>
+            </div>
+            <div id="progress" class="tab" style="display: none;">
+                <canvas id="progressChart" style="width:100%;"></canvas>
+                <label for="progressOptions">Choose an option:</label>
+
+                <select name="progressOptions" id="progressOption">
+                    <option value="diet">Calorie Consumption</option>
+                    <option value="waterIntake">Water intake</option>
+                    <option value="strength">Overall Strength</option>
+                    <option value="cardio">Miles Walked</option>
+                </select>
             </div>
         </main>
     </div>
