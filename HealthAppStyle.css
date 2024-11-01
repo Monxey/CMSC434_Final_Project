@@ -133,3 +133,18 @@ li {
 label {
     margin: 5px;
 }
+
+.profile-selector {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.profile-btn {
+    flex: 1;
+    margin: 0 5px;
+}
+
+.profile-btn.active {
+    background-color: #78b4ba;
+}

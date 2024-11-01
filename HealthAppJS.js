@@ -13,24 +13,119 @@ function showTab(tabName) {
     if (tabName = "progress") {progressChart();}
 }
 
+// Initialize profiles in localStorage if they don't exist
+if (!localStorage.getItem('profiles')) {
+    localStorage.setItem('profiles', JSON.stringify([
+        { name: '', age: '', weight: '', height: '' },
+        { name: '', age: '', weight: '', height: '' },
+        { name: '', age: '', weight: '', height: '' },
+        { name: '', age: '', weight: '', height: '' }
+    ]));
+}
+
+let currentProfile = 1;
+
+function switchProfile(profileNum) {
+    currentProfile = profileNum;
+    
+    // Update active button
+    document.querySelectorAll('.profile-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`.profile-btn:nth-child(${profileNum})`).classList.add('active');
+    
+    // Update current profile heading
+    document.getElementById('currentProfileHeading').textContent = `Current Profile: Profile ${profileNum}`;
+    
+    // Load profile data
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[profileNum - 1];
+    
+    document.getElementById('name').value = profile.name;
+    document.getElementById('age').value = profile.age;
+    document.getElementById('weight').value = profile.weight;
+    document.getElementById('height').value = profile.height;
+
+    // Load goals, exercises, and distances for the current profile
+    loadGoals();
+    loadExercises();
+    loadDistances();
+}
+
 function saveProfile() {
     const name = document.getElementById('name').value;
     const age = document.getElementById('age').value;
     const weight = document.getElementById('weight').value;
-    const height_ft = document.getElementById('height_ft').value;
-    const height_in = document.getElementById('height_inches').value;
-    alert(`Profile Saved!\nName: ${name}, Age: ${age}, Weight: ${weight}, Height: ${height_ft}\'${height_in}`);
+    const height = document.getElementById('height').value;
+    
+    // Validate inputs
+    if (!name || !age || !weight || !height) {
+        alert('Please fill in all fields');
+        return;
+    }
+    
+    if (age < 0 || weight < 0 || height < 0) {
+        alert('Please enter valid positive numbers');
+        return;
+    }
+    
+    // Save to localStorage
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    profiles[currentProfile - 1] = {
+        name: name,
+        age: age,
+        weight: weight,
+        height: height
+    };
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    
+    alert('Profile saved successfully!');
 }
 
 function addGoal() {
     const goalDescription = document.getElementById('goalDescription').value;
     const goalDate = document.getElementById('goalDate').value;
-    const goalList = document.getElementById('goalList');
+    
+    if (!goalDescription || !goalDate) {
+        alert('Please provide both a goal description and a final date.');
+        return;
+    }
 
-    const li = document.createElement('li');
-    li.textContent = `Goal: ${goalDescription} - Target Date: ${goalDate}`;
-    goalList.appendChild(li);
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+
+    if (!profile.goals) {
+        profile.goals = [];
+    }
+
+    profile.goals.push({ description: goalDescription, date: goalDate });
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+
+    loadGoals();
     document.getElementById('goalForm').reset();
+}
+
+function loadGoals() {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    const goalList = document.getElementById('goalList');
+    goalList.innerHTML = '';
+
+    if (profile.goals) {
+        profile.goals.forEach(goal => {
+            const li = document.createElement('li');
+            li.textContent = `Goal: ${goal.description} - Target Date: ${goal.date}`;
+            goalList.appendChild(li);
+        });
+    }
+}
+
+function clearGoals() {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    profile.goals = [];
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    loadGoals();
 }
 
 function addExercise() {
@@ -38,23 +133,107 @@ function addExercise() {
     const sets = document.getElementById('sets').value;
     const reps = document.getElementById('reps').value;
     const weightUsed = document.getElementById('weightUsed').value;
-    const fitnessList = document.getElementById('fitnessList');
 
-    const li = document.createElement('li');
-    li.textContent = `Exercise: ${exercise}, Sets: ${sets}, Reps: ${reps}, Weight: ${weightUsed} lbs`;
-    fitnessList.appendChild(li);
+    if (sets < 0 || reps < 0 || weightUsed < 0) {
+        alert('Please enter valid positive numbers for sets, reps, and weight.');
+        return;
+    }
+
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+
+    if (!profile.exercises) {
+        profile.exercises = [];
+    }
+
+    profile.exercises.push({ exercise, sets, reps, weightUsed });
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+
+    loadExercises();
     document.getElementById('fitnessForm').reset();
+}
+
+function loadExercises() {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    const fitnessList = document.getElementById('fitnessList');
+    fitnessList.innerHTML = '';
+
+    if (profile.exercises) {
+        profile.exercises.forEach((exercise, index) => {
+            const li = document.createElement('li');
+            li.textContent = `Exercise: ${exercise.exercise}, Sets: ${exercise.sets}, Reps: ${exercise.reps}, Weight: ${exercise.weightUsed} lbs`;
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = () => removeExercise(index);
+            li.appendChild(removeButton);
+            fitnessList.appendChild(li);
+        });
+    }
+}
+
+function removeExercise(index) {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    profile.exercises.splice(index, 1);
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    loadExercises();
 }
 
 function logDistance() {
     const distance = document.getElementById('distance').value;
-    const distanceList = document.getElementById('distanceList');
 
-    const li = document.createElement('li');
-    li.textContent = `Distance: ${distance} miles`;
-    distanceList.appendChild(li);
+    if (distance < 0) {
+        alert('Please enter a valid positive number for distance.');
+        return;
+    }
+
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+
+    if (!profile.distances) {
+        profile.distances = [];
+    }
+
+    profile.distances.push(distance);
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+
+    loadDistances();
     document.getElementById('distance').value = '';
 }
+
+function loadDistances() {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    const distanceList = document.getElementById('distanceList');
+    distanceList.innerHTML = '';
+
+    if (profile.distances) {
+        profile.distances.forEach((distance, index) => {
+            const li = document.createElement('li');
+            li.textContent = `Distance: ${distance} miles`;
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = () => removeDistance(index);
+            li.appendChild(removeButton);
+            distanceList.appendChild(li);
+        });
+    }
+}
+
+function removeDistance(index) {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    profile.distances.splice(index, 1);
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    loadDistances();
+}
+
+// Load exercises and distances for the current profile on page load
+window.addEventListener('load', () => {
+    loadExercises();
+    loadDistances();
+});
 
 function progressChart() {
 
