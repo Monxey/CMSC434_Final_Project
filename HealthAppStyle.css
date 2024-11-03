@@ -52,8 +52,8 @@ nav button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px; /* Adjust width as needed */
-    height: 80px; /* Adjust height as needed */
+    width: 80px; /* Adjust width as needed /
+    height: 80px; / Adjust height as needed */
     box-sizing: content-box;
 }
 
@@ -126,8 +126,8 @@ li {
 }
 
 #water-progress {
-    width: 500px; /* Increase width */
-    height: 50px; /* Increase height */
+    width: 500px; /* Increase width /
+    height: 50px; / Increase height */
 }
 
 label {
