@@ -235,53 +235,389 @@ window.addEventListener('load', () => {
     loadDistances();
 });
 
+function addMeal(mealType) {
+    const foodInput = document.getElementById(`${mealType}-food`);
+    const calorieSlider = document.getElementById(`${mealType}-calories`);
+    const food = foodInput.value;
+    const calories = parseInt(calorieSlider.value);
+
+    if (!food) {
+        alert('Please enter a food item');
+        return;
+    }
+
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+
+    if (!profile.meals) {
+        profile.meals = {};
+    }
+    if (!profile.meals[mealType]) {
+        profile.meals[mealType] = [];
+    }
+
+    const date = new Date().toISOString().split('T')[0];
+    profile.meals[mealType].push({
+        date: date,
+        food: food,
+        calories: calories
+    });
+
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    updateMealList(mealType);
+    updateCalorieProgress();
+
+    // Reset inputs
+    foodInput.value = '';
+    calorieSlider.value = 0;
+    document.getElementById(`${mealType}-cal-value`).textContent = '0';
+}
+
+function updateMealList(mealType) {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    const mealList = document.getElementById(`${mealType}-list`);
+    mealList.innerHTML = '';
+
+    if (profile.meals && profile.meals[mealType]) {
+        const today = new Date().toISOString().split('T')[0];
+        const todaysMeals = profile.meals[mealType].filter(meal => meal.date === today);
+
+        todaysMeals.forEach((meal, index) => {
+            const li = document.createElement('li');
+            li.textContent = `${meal.food} - ${meal.calories} calories`;
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = () => removeMeal(mealType, index);
+            li.appendChild(removeButton);
+            mealList.appendChild(li);
+        });
+    }
+}
+
+function removeMeal(mealType, index) {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    const today = new Date().toISOString().split('T')[0];
+    
+    profile.meals[mealType] = profile.meals[mealType].filter((meal, i) => 
+        meal.date !== today || i !== index
+    );
+    
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    updateMealList(mealType);
+    updateCalorieProgress();
+}
+
+function updateCalorieProgress() {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    const today = new Date().toISOString().split('T')[0];
+    let totalCalories = 0;
+
+    if (profile.meals) {
+        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+            if (profile.meals[mealType]) {
+                totalCalories += profile.meals[mealType]
+                    .filter(meal => meal.date === today)
+                    .reduce((sum, meal) => sum + meal.calories, 0);
+            }
+        });
+    }
+
+    const progress = document.getElementById('calorie-progress');
+    const display = document.getElementById('calorie-display');
+    progress.value = totalCalories;
+    display.textContent = `${totalCalories}/2000 calories`;
+}
+
+function addWater() {
+    const waterSlider = document.getElementById('water-slider');
+    const amount = parseInt(waterSlider.value);
+    
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    
+    if (!profile.waterIntake) {
+        profile.waterIntake = [];
+    }
+
+    const today = new Date().toISOString().split('T')[0];
+    profile.waterIntake.push({
+        date: today,
+        amount: amount
+    });
+
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    updateWaterProgress();
+    waterSlider.value = 0;
+    document.getElementById('water-value').textContent = '0';
+}
+
+function updateWaterProgress() {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    const today = new Date().toISOString().split('T')[0];
+    
+    let totalWater = 0;
+    if (profile.waterIntake) {
+        totalWater = profile.waterIntake
+            .filter(entry => entry.date === today)
+            .reduce((sum, entry) => sum + entry.amount, 0);
+    }
+
+    const progress = document.getElementById('water-progress');
+    const display = document.getElementById('water-display');
+    progress.value = totalWater;
+    display.textContent = `${totalWater}/128 oz`;
+}
+
 function progressChart() {
+    updateProgressChart();
+}
 
-    const xyValues = [
-        {x:10, y:10},
-        {x:20, y:20},
-        {x:30, y:25},
-        {x:40, y:30},
-        {x:50, y:40},
-        {x:60, y:45},
-        {x:70, y:50},
-        {x:80, y:60},
-        {x:90, y:65},
-        {x:95, y:70},
-        {x:100, y:80}
-    ];
-      
-    new Chart("progressChart", {
+function updateProgressChart() {
+    const option = document.getElementById('progressOption').value;
+    const timeRange = document.getElementById('timeRange').value;
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    
+    let data = [];
+    let labels = [];
+    let title = '';
+    let yAxisLabel = '';
 
-        type: "scatter",
+    const endDate = new Date();
+    let startDate = new Date();
+    
+    switch(timeRange) {
+        case 'week':
+            startDate.setDate(endDate.getDate() - 7);
+            break;
+        case 'month':
+            startDate.setMonth(endDate.getMonth() - 1);
+            break;
+        case 'year':
+            startDate.setFullYear(endDate.getFullYear() - 1);
+            break;
+    }
+
+    switch(option) {
+        case 'calories':
+            title = 'Daily Calorie Intake';
+            yAxisLabel = 'Calories';
+            data = getDailyCalories(profile, startDate, endDate);
+            break;
+        case 'water':
+            title = 'Daily Water Intake';
+            yAxisLabel = 'Ounces';
+            data = getDailyWater(profile, startDate, endDate);
+            break;
+        case 'cardio':
+            title = 'Daily Miles Walked';
+            yAxisLabel = 'Miles';
+            data = getDailyDistance(profile, startDate, endDate);
+            break;
+        case 'strength':
+            title = 'Strength Progress';
+            yAxisLabel = 'Total Weight × Reps';
+            data = getStrengthProgress(profile, startDate, endDate);
+            break;
+    }
+
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    if (window.progressChartInstance) {
+        window.progressChartInstance.destroy();
+    }
+
+    window.progressChartInstance = new Chart(ctx, {
+        type: 'line',
         data: {
-          datasets: [{
-            pointRadius: 4,
-            pointBackgroundColor: "rgb(0,0,255)",
-            data: xyValues
-          }]
+            labels: data.map(d => d.date),
+            datasets: [{
+                label: title,
+                data: data.map(d => d.value),
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
         },
         options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Progress Chart', // Chart title
-                    /* Personal styling of chart title */
-                    color: 'green',
-                    font: {
-                        weight: 'bold',
-                        size: 24
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: yAxisLabel
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
                     }
                 }
             },
-            legend: {display: true},
-            scales: {
-                xAxes: [{ticks: {min: 0, max:100}}],
-                yAxes: [{ticks: {min: 0, max:100}}],
+            plugins: {
+                title: {
+                    display: true,
+                    text: title
+                }
             }
         }
     });
 }
 
-// Show the Profile tab by default
-showTab('profile');
+// Helper functions for data processing
+function getDailyCalories(profile, startDate, endDate) {
+    const data = [];
+    if (!profile.meals) return data;
+
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const date = d.toISOString().split('T')[0];
+        let dailyTotal = 0;
+
+        ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+            if (profile.meals[mealType]) {
+                dailyTotal += profile.meals[mealType]
+                    .filter(meal => meal.date === date)
+                    .reduce((sum, meal) => sum + meal.calories, 0);
+            }
+        });
+
+        data.push({ date: date, value: dailyTotal });
+    }
+    return data;
+}
+
+function getDailyWater(profile, startDate, endDate) {
+    const data = [];
+    if (!profile.waterIntake) return data;
+
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const date = d.toISOString().split('T')[0];
+        const dailyTotal = profile.waterIntake
+            .filter(entry => entry.date === date)
+            .reduce((sum, entry) => sum + entry.amount, 0);
+
+        data.push({ date: date, value: dailyTotal });
+    }
+    return data;
+}
+
+function getDailyDistance(profile, startDate, endDate) {
+    const data = [];
+    if (!profile.distances) return data;
+
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const date = d.toISOString().split('T')[0];
+        const dailyTotal = profile.distances
+            .filter(entry => entry.date === date)
+            .reduce((sum, distance) => sum + parseFloat(distance), 0);
+
+        data.push({ date: date, value: dailyTotal });
+    }
+    return data;
+}
+
+function getStrengthProgress(profile, startDate, endDate) {
+    const data = [];
+    if (!profile.exercises) return data;
+
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const date = d.toISOString().split('T')[0];
+        let dailyTotal = 0;
+
+        const dayExercises = profile.exercises.filter(ex => ex.date === date);
+        dayExercises.forEach(exercise => {
+            // Calculate total weight lifted (weight × sets × reps)
+            dailyTotal += exercise.weightUsed * exercise.sets * exercise.reps;
+        });
+
+        data.push({ date: date, value: dailyTotal });
+    }
+    return data;
+}
+
+// Event listeners for sliders
+document.addEventListener('DOMContentLoaded', function() {
+    // Meal calorie sliders
+    ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
+        const slider = document.getElementById(`${mealType}-calories`);
+        const output = document.getElementById(`${mealType}-cal-value`);
+        
+        slider.oninput = function() {
+            output.textContent = this.value;
+        }
+    });
+
+    // Water intake slider
+    const waterSlider = document.getElementById('water-slider');
+    const waterOutput = document.getElementById('water-value');
+    
+    waterSlider.oninput = function() {
+        waterOutput.textContent = this.value;
+    }
+
+    // Initialize progress displays
+    updateCalorieProgress();
+    updateWaterProgress();
+});
+
+// Modify the existing addExercise function to include date
+function addExercise() {
+    const exercise = document.getElementById('exercise').value;
+    const sets = document.getElementById('sets').value;
+    const reps = document.getElementById('reps').value;
+    const weightUsed = document.getElementById('weightUsed').value;
+
+    if (!exercise || sets <= 0 || reps <= 0 || weightUsed < 0) {
+        alert('Please enter valid values for all fields');
+        return;
+    }
+
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+
+    if (!profile.exercises) {
+        profile.exercises = [];
+    }
+
+    profile.exercises.push({
+        exercise,
+        sets,
+        reps,
+        weightUsed,
+        date: new Date().toISOString().split('T')[0]
+    });
+
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    loadExercises();
+    document.getElementById('fitnessForm').reset();
+}
+
+// Modify the existing logDistance function to include date
+function logDistance() {
+    const distance = document.getElementById('distance').value;
+
+    if (distance <= 0) {
+        alert('Please enter a valid positive number for distance.');
+        return;
+    }
+
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+
+    if (!profile.distances) {
+        profile.distances = [];
+    }
+
+    profile.distances.push({
+        distance: parseFloat(distance),
+        date: new Date().toISOString().split('T')[0]
+    });
+
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    loadDistances();
+    document.getElementById('distance').value = '';
+}
