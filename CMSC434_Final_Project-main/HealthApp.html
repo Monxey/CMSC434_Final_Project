@@ -86,11 +86,11 @@
             <div id="diet" class="tab" style="display:none;">
                 <h2>Daily Meal Tracker</h2>
                 <div class="meal-section">
-                    <h3>Breakfast</h3>
+                    <h3>What did you eat for breakfast?</h3>
                     <div class="meal-input">
                         <input type="text" id="breakfast-food" placeholder="Food item">
                         <div class="slider-container">
-                            <label>Calories: <span id="breakfast-cal-value">0</span></label>
+                            <label>How many calories (Enter a number)? <span id="breakfast-cal-value">0</span></label>
                             <input type="range" id="breakfast-calories" min="0" max="1000" value="0" class="slider">
                         </div>
                         <button type="button" onclick="addMeal('breakfast')">Add Food</button>
@@ -99,11 +99,11 @@
                 </div>
 
                 <div class="meal-section">
-                    <h3>Lunch</h3>
+                    <h3>What did you eat for lunch?</h3>
                     <div class="meal-input">
                         <input type="text" id="lunch-food" placeholder="Food item">
                         <div class="slider-container">
-                            <label>Calories: <span id="lunch-cal-value">0</span></label>
+                            <label>How many calories (Enter a number)? <span id="lunch-cal-value">0</span></label>
                             <input type="range" id="lunch-calories" min="0" max="1000" value="0" class="slider">
                         </div>
                         <button type="button" onclick="addMeal('lunch')">Add Food</button>
@@ -112,11 +112,11 @@
                 </div>
 
                 <div class="meal-section">
-                    <h3>Dinner</h3>
+                    <h3>What did you eat for dinner?</h3>
                     <div class="meal-input">
                         <input type="text" id="dinner-food" placeholder="Food item">
                         <div class="slider-container">
-                            <label>Calories: <span id="dinner-cal-value">0</span></label>
+                            <label>How many calories (Enter a number)? <span id="dinner-cal-value">0</span></label>
                             <input type="range" id="dinner-calories" min="0" max="1000" value="0" class="slider">
                         </div>
                         <button type="button" onclick="addMeal('dinner')">Add Food</button>
@@ -125,7 +125,7 @@
                 </div>
 
                 <div class="calorie-summary">
-                    <h3>Daily Calorie Summary</h3>
+                    <h3>Calorie progress</h3>
                     <div class="progress-container">
                         <progress id="calorie-progress" value="0" max="2000"></progress>
                         <span id="calorie-display">0/2000 calories</span>
