@@ -84,36 +84,87 @@
                 <ul id="distanceList"></ul>
             </div>
             <div id="diet" class="tab" style="display:none;">
-                <h2>Breakfast</h2>
-                <button type="button" onclick="">Add Meal</button>
-                <h2>Lunch</h2>
-                <button type="button" onclick="">Add Meal</button>
-                <h2>Dinner</h2>
-                <button type="button" onclick="">Add Meal</button>
-                <h2 style="text-align: center;">Today's Water Intake</h2>
-                <label for="waterIntake" style="text-align: center;" >Ounces (oz):</label>
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" id="waterIntake" name="waterIntake"> 
-                    <button type="button" onclick="">Add</button>
+                <h2>Daily Meal Tracker</h2>
+                <div class="meal-section">
+                    <h3>Breakfast</h3>
+                    <div class="meal-input">
+                        <input type="text" id="breakfast-food" placeholder="Food item">
+                        <div class="slider-container">
+                            <label>Calories: <span id="breakfast-cal-value">0</span></label>
+                            <input type="range" id="breakfast-calories" min="0" max="1000" value="0" class="slider">
+                        </div>
+                        <button type="button" onclick="addMeal('breakfast')">Add Food</button>
+                    </div>
+                    <ul id="breakfast-list" class="meal-list"></ul>
                 </div>
-                <div style="display: block;">
-                    <label for="water-progress" style="text-align: center; " >progress: </label>
-                    <progress id = "water-progress" value="0" max="128"></progress>
+
+                <div class="meal-section">
+                    <h3>Lunch</h3>
+                    <div class="meal-input">
+                        <input type="text" id="lunch-food" placeholder="Food item">
+                        <div class="slider-container">
+                            <label>Calories: <span id="lunch-cal-value">0</span></label>
+                            <input type="range" id="lunch-calories" min="0" max="1000" value="0" class="slider">
+                        </div>
+                        <button type="button" onclick="addMeal('lunch')">Add Food</button>
+                    </div>
+                    <ul id="lunch-list" class="meal-list"></ul>
+                </div>
+
+                <div class="meal-section">
+                    <h3>Dinner</h3>
+                    <div class="meal-input">
+                        <input type="text" id="dinner-food" placeholder="Food item">
+                        <div class="slider-container">
+                            <label>Calories: <span id="dinner-cal-value">0</span></label>
+                            <input type="range" id="dinner-calories" min="0" max="1000" value="0" class="slider">
+                        </div>
+                        <button type="button" onclick="addMeal('dinner')">Add Food</button>
+                    </div>
+                    <ul id="dinner-list" class="meal-list"></ul>
+                </div>
+
+                <div class="calorie-summary">
+                    <h3>Daily Calorie Summary</h3>
+                    <div class="progress-container">
+                        <progress id="calorie-progress" value="0" max="2000"></progress>
+                        <span id="calorie-display">0/2000 calories</span>
+                    </div>
+                </div>
+
+                <div class="water-tracking">
+                    <h3>Water Intake</h3>
+                    <div class="slider-container">
+                        <label>Water (oz): <span id="water-value">0</span></label>
+                        <input type="range" id="water-slider" min="0" max="16" value="0" step="1" class="slider">
+                        <button onclick="addWater()">Add Water</button>
+                    </div>
+                    <div class="progress-container">
+                        <progress id="water-progress" value="0" max="128"></progress>
+                        <span id="water-display">0/128 oz</span>
+                    </div>
                 </div>
             </div>
-            <div id="progress" class="tab" style="display: none;">
-                <canvas id="progressChart" style="width:100%;"></canvas>
-                <label for="progressOptions">Choose an option:</label>
 
-                <select name="progressOptions" id="progressOption">
-                    <option value="diet">Calorie Consumption</option>
-                    <option value="waterIntake">Water intake</option>
-                    <option value="strength">Overall Strength</option>
-                    <option value="cardio">Miles Walked</option>
-                </select>
+            <div id="progress" class="tab" style="display: none;">
+                <div class="progress-controls">
+                    <label for="progressOptions">Track Progress For:</label>
+                    <select name="progressOptions" id="progressOption" onchange="updateProgressChart()">
+                        <option value="calories">Calorie Consumption</option>
+                        <option value="water">Water Intake</option>
+                        <option value="strength">Overall Strength</option>
+                        <option value="cardio">Miles Walked</option>
+                    </select>
+                    <label for="timeRange">Time Range:</label>
+                    <select name="timeRange" id="timeRange" onchange="updateProgressChart()">
+                        <option value="week">Past Week</option>
+                        <option value="month">Past Month</option>
+                        <option value="year">Past Year</option>
+                    </select>
+                </div>
+                <canvas id="progressChart" style="width:100%;"></canvas>
             </div>
         </main>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
