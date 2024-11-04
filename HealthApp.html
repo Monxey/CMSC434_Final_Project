@@ -42,12 +42,24 @@
                 <form id="profileForm">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
+                    
+                    <label for="sex">Assigned Sex at Birth:</label>
+                    <select id="sex" name="sex" required>
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    
                     <label for="age">Age:</label>
                     <input type="number" id="age" name="age" min="0" required>
+                    
                     <label for="weight">Weight (lbs):</label>
                     <input type="number" id="weight" name="weight" min="0" required>
+                    
                     <label for="height">Height (inches):</label>
                     <input type="number" id="height" name="height" min="0" required>
+                    
                     <button type="button" onclick="saveProfile()">Save</button>
                 </form>
             </div>
@@ -61,7 +73,9 @@
                     <button type="button" onclick="addGoal()">Add Goal</button>
                 </form>
                 <button type="button" onclick="clearGoals()">Clear All Goals</button>
-                <ul id="goalList"></ul>
+                <ul id="goalList" class="goal-list">
+                </ul>
+                
             </div>
             <div id="fitness" class="tab" style="display:none;">
                 <h2>Fitness</h2>
@@ -86,11 +100,11 @@
             <div id="diet" class="tab" style="display:none;">
                 <h2>Daily Meal Tracker</h2>
                 <div class="meal-section">
-                    <h3>Breakfast</h3>
+                    <h3>What did you eat for breakfast?</h3>
                     <div class="meal-input">
                         <input type="text" id="breakfast-food" placeholder="Food item">
                         <div class="slider-container">
-                            <label>Calories: <span id="breakfast-cal-value">0</span></label>
+                            <label>How many calories (Enter a number)? <span id="breakfast-cal-value">0</span></label>
                             <input type="range" id="breakfast-calories" min="0" max="1000" value="0" class="slider">
                         </div>
                         <button type="button" onclick="addMeal('breakfast')">Add Food</button>
@@ -99,11 +113,11 @@
                 </div>
 
                 <div class="meal-section">
-                    <h3>Lunch</h3>
+                    <h3>What did you eat for lunch?</h3>
                     <div class="meal-input">
                         <input type="text" id="lunch-food" placeholder="Food item">
                         <div class="slider-container">
-                            <label>Calories: <span id="lunch-cal-value">0</span></label>
+                            <label>How many calories (Enter a number)? <span id="lunch-cal-value">0</span></label>
                             <input type="range" id="lunch-calories" min="0" max="1000" value="0" class="slider">
                         </div>
                         <button type="button" onclick="addMeal('lunch')">Add Food</button>
@@ -112,11 +126,11 @@
                 </div>
 
                 <div class="meal-section">
-                    <h3>Dinner</h3>
+                    <h3>What did you eat for dinner?</h3>
                     <div class="meal-input">
                         <input type="text" id="dinner-food" placeholder="Food item">
                         <div class="slider-container">
-                            <label>Calories: <span id="dinner-cal-value">0</span></label>
+                            <label>How many calories (Enter a number)? <span id="dinner-cal-value">0</span></label>
                             <input type="range" id="dinner-calories" min="0" max="1000" value="0" class="slider">
                         </div>
                         <button type="button" onclick="addMeal('dinner')">Add Food</button>
@@ -125,7 +139,7 @@
                 </div>
 
                 <div class="calorie-summary">
-                    <h3>Daily Calorie Summary</h3>
+                    <h3>Calorie progress</h3>
                     <div class="progress-container">
                         <progress id="calorie-progress" value="0" max="2000"></progress>
                         <span id="calorie-display">0/2000 calories</span>
