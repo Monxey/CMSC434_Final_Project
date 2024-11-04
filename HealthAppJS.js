@@ -13,13 +13,12 @@ function showTab(tabName) {
     if (tabName = "progress") {progressChart();}
 }
 
-// Initialize profiles in localStorage if they don't exist
 if (!localStorage.getItem('profiles')) {
     localStorage.setItem('profiles', JSON.stringify([
-        { name: '', age: '', weight: '', height: '' },
-        { name: '', age: '', weight: '', height: '' },
-        { name: '', age: '', weight: '', height: '' },
-        { name: '', age: '', weight: '', height: '' }
+        { name: '', sex: '', age: '', weight: '', height: '' },
+        { name: '', sex: '', age: '', weight: '', height: '' },
+        { name: '', sex: '', age: '', weight: '', height: '' },
+        { name: '', sex: '', age: '', weight: '', height: '' }
     ]));
 }
 
@@ -28,38 +27,36 @@ let currentProfile = 1;
 function switchProfile(profileNum) {
     currentProfile = profileNum;
     
-    // Update active button
     document.querySelectorAll('.profile-btn').forEach(btn => {
         btn.classList.remove('active');
     });
     document.querySelector(`.profile-btn:nth-child(${profileNum})`).classList.add('active');
     
-    // Update current profile heading
     document.getElementById('currentProfileHeading').textContent = `Current Profile: Profile ${profileNum}`;
     
-    // Load profile data
     const profiles = JSON.parse(localStorage.getItem('profiles'));
     const profile = profiles[profileNum - 1];
     
     document.getElementById('name').value = profile.name;
+    document.getElementById('sex').value = profile.sex;
     document.getElementById('age').value = profile.age;
     document.getElementById('weight').value = profile.weight;
     document.getElementById('height').value = profile.height;
 
-    // Load goals, exercises, and distances for the current profile
     loadGoals();
     loadExercises();
     loadDistances();
 }
 
+
 function saveProfile() {
     const name = document.getElementById('name').value;
+    const sex = document.getElementById('sex').value;
     const age = document.getElementById('age').value;
     const weight = document.getElementById('weight').value;
     const height = document.getElementById('height').value;
     
-    // Validate inputs
-    if (!name || !age || !weight || !height) {
+    if (!name || !sex || !age || !weight || !height) {
         alert('Please fill in all fields');
         return;
     }
@@ -69,10 +66,10 @@ function saveProfile() {
         return;
     }
     
-    // Save to localStorage
     const profiles = JSON.parse(localStorage.getItem('profiles'));
     profiles[currentProfile - 1] = {
         name: name,
+        sex: sex,
         age: age,
         weight: weight,
         height: height
@@ -98,9 +95,14 @@ function addGoal() {
         profile.goals = [];
     }
 
-    profile.goals.push({ description: goalDescription, date: goalDate });
+    profile.goals.push({ 
+        description: goalDescription, 
+        date: goalDate,
+        completed: false,
+        completedDate: null
+    });
+    
     localStorage.setItem('profiles', JSON.stringify(profiles));
-
     loadGoals();
     document.getElementById('goalForm').reset();
 }
@@ -112,12 +114,78 @@ function loadGoals() {
     goalList.innerHTML = '';
 
     if (profile.goals) {
-        profile.goals.forEach(goal => {
+        profile.goals.forEach((goal, index) => {
             const li = document.createElement('li');
-            li.textContent = `Goal: ${goal.description} - Target Date: ${goal.date}`;
+            li.className = goal.completed ? 'completed-goal' : '';
+            
+            // Create goal content div
+            const goalContent = document.createElement('div');
+            goalContent.className = 'goal-content';
+            
+            // Add checkbox
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = goal.completed;
+            checkbox.onchange = () => toggleGoalCompletion(index);
+            
+            // Add goal text
+            const goalText = document.createElement('span');
+            goalText.textContent = `Goal: ${goal.description} - Target Date: ${goal.date}`;
+            if (goal.completed) {
+                goalText.style.textDecoration = 'line-through';
+                goalText.style.color = '#666';
+            }
+            
+            // Add completion date if completed
+            let completionText = '';
+            if (goal.completed && goal.completedDate) {
+                completionText = document.createElement('span');
+                completionText.className = 'completion-date';
+                completionText.textContent = ` (Completed: ${goal.completedDate})`;
+            }
+            
+            // Add delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => removeGoal(index);
+            
+            // Assemble the goal item
+            goalContent.appendChild(checkbox);
+            goalContent.appendChild(goalText);
+            if (completionText) {
+                goalContent.appendChild(completionText);
+            }
+            goalContent.appendChild(deleteButton);
+            li.appendChild(goalContent);
             goalList.appendChild(li);
         });
     }
+}
+
+function toggleGoalCompletion(index) {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    
+    if (profile.goals[index]) {
+        profile.goals[index].completed = !profile.goals[index].completed;
+        if (profile.goals[index].completed) {
+            profile.goals[index].completedDate = new Date().toISOString().split('T')[0];
+        } else {
+            profile.goals[index].completedDate = null;
+        }
+    }
+    
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    loadGoals();
+}
+
+function removeGoal(index) {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    const profile = profiles[currentProfile - 1];
+    
+    profile.goals.splice(index, 1);
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    loadGoals();
 }
 
 function clearGoals() {
