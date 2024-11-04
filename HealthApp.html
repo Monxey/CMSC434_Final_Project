@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <!--Head, so link the css and js files and also get the chart.js stuff imported for the progress charts-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=640, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
+    <!--Tabs and the corresponding icons for the tabs-->
     <div class="container">
         <header>
         </header>
@@ -29,6 +31,7 @@
                 <img src="images/progress.png" alt="progress" class="nav-icon">
             </button>
         </nav>
+        <!--Start on profile 1 and the buttons for other profiles-->
         <h3 id="currentProfileHeading" style="text-align: center;">Current Profile: Profile 1</h3>
         <main>
             <div id="profile" class="tab" style="display:block;">
@@ -39,30 +42,26 @@
                     <button type="button" onclick="switchProfile(3)" class="profile-btn">Profile 3</button>
                     <button type="button" onclick="switchProfile(4)" class="profile-btn">Profile 4</button>
                 </div>
+                <!--Questions for the user to input for the profile-->
                 <form id="profileForm">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
-                    
                     <label for="sex">Assigned Sex at Birth:</label>
                     <select id="sex" name="sex" required>
                         <option value="">Select...</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                        <option value="other">Other</option>
                     </select>
-                    
                     <label for="age">Age:</label>
                     <input type="number" id="age" name="age" min="0" required>
-                    
-                    <label for="weight">Weight (lbs):</label>
+                    <label for="weight">Weight in lbs:</label>
                     <input type="number" id="weight" name="weight" min="0" required>
-                    
-                    <label for="height">Height (inches):</label>
+                    <label for="height">Height in inches:</label>
                     <input type="number" id="height" name="height" min="0" required>
-                    
-                    <button type="button" onclick="saveProfile()">Save</button>
+                    <button type="button" onclick="saveProfile()">Save Profile</button>
                 </form>
             </div>
+            <!--Operations for the goals tab-->
             <div id="goals" class="tab" style="display:none;">
                 <h2>Goals</h2>
                 <form id="goalForm">
@@ -75,8 +74,8 @@
                 <button type="button" onclick="clearGoals()">Clear All Goals</button>
                 <ul id="goalList" class="goal-list">
                 </ul>
-                
             </div>
+            <!--Operations for the fitness tab-->
             <div id="fitness" class="tab" style="display:none;">
                 <h2>Fitness</h2>
                 <form id="fitnessForm">
@@ -86,19 +85,20 @@
                     <input type="number" id="sets" name="sets">
                     <label for="reps">Reps:</label>
                     <input type="number" id="reps" name="reps">
-                    <label for="weightUsed">Weight (lbs):</label>
+                    <label for="weightUsed">Weight in lbs:</label>
                     <input type="number" id="weightUsed" name="weightUsed">
                     <button type="button" onclick="addExercise()">Add Exercise</button>
                 </form>
                 <h3>Cardio</h3>
-                <label for="distance">Distance (miles):</label>
+                <label for="distance">Distance in miles:</label>
                 <input type="number" id="distance" name="distance">
                 <button type="button" onclick="logDistance()">Log Distance</button>
                 <ul id="fitnessList"></ul>
                 <ul id="distanceList"></ul>
             </div>
+            <!--Diet for breakfast, lunch, and dinner and calorie input for each meal-->
             <div id="diet" class="tab" style="display:none;">
-                <h2>Daily Meal Tracker</h2>
+                <h2>Meal Tracker</h2>
                 <div class="meal-section">
                     <h3>What did you eat for breakfast?</h3>
                     <div class="meal-input">
@@ -111,7 +111,6 @@
                     </div>
                     <ul id="breakfast-list" class="meal-list"></ul>
                 </div>
-
                 <div class="meal-section">
                     <h3>What did you eat for lunch?</h3>
                     <div class="meal-input">
@@ -124,7 +123,6 @@
                     </div>
                     <ul id="lunch-list" class="meal-list"></ul>
                 </div>
-
                 <div class="meal-section">
                     <h3>What did you eat for dinner?</h3>
                     <div class="meal-input">
@@ -137,7 +135,7 @@
                     </div>
                     <ul id="dinner-list" class="meal-list"></ul>
                 </div>
-
+                <!--Calorie progress tracker-->
                 <div class="calorie-summary">
                     <h3>Calorie progress</h3>
                     <div class="progress-container">
@@ -145,13 +143,13 @@
                         <span id="calorie-display">0/2000 calories</span>
                     </div>
                 </div>
-
+                <!--Water intake tracker-->
                 <div class="water-tracking">
                     <h3>Water Intake</h3>
                     <div class="slider-container">
-                        <label>Water (oz): <span id="water-value">0</span></label>
+                        <label>Water in oz: <span id="water-value">0</span></label>
                         <input type="range" id="water-slider" min="0" max="16" value="0" step="1" class="slider">
-                        <button onclick="addWater()">Add Water</button>
+                        <button onclick="addWater()">Add oz</button>
                     </div>
                     <div class="progress-container">
                         <progress id="water-progress" value="0" max="128"></progress>
@@ -159,7 +157,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--Progress chart with chart options for calorie consumption, water intake, overall strength, miles walked.-->
             <div id="progress" class="tab" style="display: none;">
                 <div class="progress-controls">
                     <label for="progressOptions">Track Progress For:</label>
@@ -169,11 +167,12 @@
                         <option value="strength">Overall Strength</option>
                         <option value="cardio">Miles Walked</option>
                     </select>
+                    <!--Time range for viewing the graph during different points in time-->
                     <label for="timeRange">Time Range:</label>
                     <select name="timeRange" id="timeRange" onchange="updateProgressChart()">
-                        <option value="week">Past Week</option>
-                        <option value="month">Past Month</option>
-                        <option value="year">Past Year</option>
+                        <option value="week">In the Last Week</option>
+                        <option value="month">In the last Month</option>
+                        <option value="year">In the last Year</option>
                     </select>
                 </div>
                 <canvas id="progressChart" style="width:100%;"></canvas>
