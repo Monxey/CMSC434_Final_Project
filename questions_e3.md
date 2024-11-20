@@ -80,6 +80,23 @@ Ex) If a researcher at the University of Maryland decided to make a recording of
 
 Ex) Describe the concept of Retrospective Testing, one strong typical advantage, one potential challenge, and provide an example of how this method could be used in a real-world scenario.
 
+Retrospective Testing is a usability evaluation method where users perform tasks without interruption while being recorded, then later review and comment on their actions while watching the recording with researchers.
+### Strong Advantage:
+- Users can complete tasks naturally without the cognitive load of verbalizing their thoughts in real-time
+- This leads to more authentic behavior and potentially faster, more natural task completion
+- The replay session can capture deeper insights since users have time to reflect on their actions
+### Potential Challenge:
+- Users might forget their exact thought process or reasoning by the time they review the recording
+- The delay between action and explanation could lead to post-rationalization or incomplete recollection
+- Sessions effectively take twice as long (task time + review time)
+### Real-World Example:
+- Testing a new mobile banking app's money transfer feature:
+- Users complete several money transfers while being recorded
+- During replay, they might notice and explain things like:
+  - "I hesitated here because I wasn't sure if I needed the routing number"
+  - "I almost tapped the wrong account because the icons look too similar"
+  - "I didn't notice this shortcut button during the actual task"
+
 
 Ex) When preparing questions for a structured interview to be held after your participant has attempted a variety of tasks in a direct observation session, what is a type of question to avoid? Explain the notion of "simple questions, detailed answers" in this context.  Provide an example of a high-quality question that you could ask your participant if they had just tried out a prototype of the new version of the Testudo website.
 
@@ -101,8 +118,25 @@ Ex) Which of the effects that we discussed is most relevant in the context of te
 
 Ex) Explain the difference between the Hawthorne Effect and the Clever Hans effect.
 
+Hawthorne Effect is about participants changing their behavior because they know they're being studied
+Clever Hans Effect is about researchers accidentally influencing participant behavior through subtle cues
+
 
 Ex) How could designers creating their own study about a new user interface trigger the Pygmalion Effect?
+
+The Pygmalion Effect occurs when researchers' expectations about participants influence the outcome of the study.
+### Through Direct Communication:
+- Expressing excitement about specific features they designed
+- Making comments like "This should be really easy to use"
+- Telling participants "Everyone else found this intuitive"
+### Through Unconscious Behaviors:
+- Showing disappointment when users struggle with their "favorite" features
+- Appearing more eager or attentive when testing new elements vs. old ones
+- Rushing through parts they expect to be problematic
+### Through Study Design:
+- Creating tasks that showcase their design's strengths
+- Avoiding scenarios they suspect might be problematic
+- Setting up leading questions that favor their design choices
 
 
 Ex) What effect could come into play if Meta ran a study comparing their latest Quest VR headset to the latest Vive VR headset from HTC.  How could Meta avoid this potential issue?
