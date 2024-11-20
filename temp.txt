@@ -1,0 +1,136 @@
+System Requirements:
+1. input personal information to receive customized exercise routines and diet plans.
+2. track fitness activities, nutrition, and weight changes using visualized data
+3. set goals within specific time periods
+4. be reminded to do their workouts by notifications
+5. build their own workouts
+6. earn awards and medals by competing in challenges against other users
+7. Set habits for drinking water, stretching, or meditation routines and receive motivational
+notifications to remind them
+
+Primary Features:
+1. The app will have a simple questionnaire to receive and store user health metrics that
+are accessible in the app
+2. The app will have a function dedicated to generating custom health routines based on
+the user’s metrics and goals
+3. The app will have a form that receives and stores the user's goals and the timeframes
+for those goals
+4. The app will have a friend system where a user can send and accept friend requests and
+see their friends’ progress pictures and metrics
+5. The app will include an input form for the user to create their own workout including
+which exercises, how many repetitions, weight, and sets, and the timeframe for the
+workout as a whole.
+
+Secondary Features:
+1. The app will need to display the user’s metrics in an easily understandable format in
+their progress/profile page
+2. The app will have to track the user’s adherence to health routines and provide
+encouragement through notifications
+3. The app will have to send reminder notifications to ensure the user keeps their goals in
+mind
+4. The app will also be able to filter goals by different categories or timeframes
+5. The app will include a timer for the user to time their workouts
+6. The app will allow have a simple habit tracker so that users can build constructive habits
+
+Horizontal Design Discussion:
+Throughout the design process, our team had gone through a few ideas in terms of
+how to create the style of our website. Our low fidelity prototypes in phase 1.1.3
+discussed some ideas for our tabs and the overall look of our app. The main home
+app showcased our idea for the workflow of the user. However, it seemed that
+pressing an icon to go to one page and going back to a home page led to a poor
+workflow, so we decided to make our medium fidelity prototype have a tab based
+system. This improved the workflow of moving between features of the app and
+kept everything local, so the user could change their tab with fluidity. Additionally,
+our team also needed to decide a color palette for our new prototype, so we decided
+to go for a clean teal look using the color palette generator for visual appeal. This
+choice of color palette was chosen as it culturally resembled health and well being.
+In our Lo-Fi prototype, we used icons for the various features/tabs for our apps. In
+our medium fidelity prototype, we continued this idea by using simple and
+consistent icons for tabs so the user can manage their workflow and focus on
+specific features related to diet, fitness, goals, and progress. Additionally, these
+icons were chosen to be easily interpretable. To further communicate the current
+feature, each page has a header to uniform the user which tab they are on in case
+they do not understand the meaning of the icon. We did migrate some of the
+original design ideas involving goal and fitness tracking to our new prototype as
+well. The UI is slightly different for the goal tab because we added a way to add
+the goals rather than just view them. Additionally, we kept a way for the user to
+complete their goals by clicking a checkbox and then deleting them once they wish
+to remove them from the screen. Throughout the entire design process, we
+prioritized simplicity by minimizing the amount of clicks and information entries
+needed for completing tasks. For the fitness tab, we prioritized the users ability to
+add an exercise and changed up the UI elements to decrease the economy of
+elements. The way the user adds an exercise is also consistent with the way they
+can add a meal or goal. Finally, for the progress feature, we wanted a simple design
+where the user can see a graph based on the feature they choose from a drop down.
+We also label the graph so the user can see what they are looking at. Specifically,
+we label the x and y axis where the x axis is composed of dates over time and the y
+is the specific measure of the selected option. So far the user can view their overall
+strength, calorie intake, water intake, and miles walked/ran on the daily over the
+course of a week, month, or year. Overall, we focused on consistency in terms of 
+our UI designs. The button colors, fonts, and layouts were kept simple and
+consistent throughout the design. 
+
+Vertical Design Discussion:
+Current Design Strengths:
+The app follows a vertical organization principle that aligns well with how users
+naturally interact with mobile and desktop interfaces. The tab-based navigation
+system, accessed through the top menu buttons, creates a clear hierarchical
+structure where each major function (Profile, Goals, Fitness, etc.) is separated into
+its own distinct vertical space. This prevents cognitive overload by showing only
+one section at a time.
+The profile system is particularly well-implemented, allowing users to maintain
+multiple separate profiles with their own associated data. This vertical separation
+of user data means that family members or different users can share the device
+while maintaining their individual health tracking information. The profile selector
+at the top provides clear visual feedback about which profile is active, and the
+consistent application of this profile context across all tabs (goals, fitness tracking,
+etc.) maintains a coherent user experience.
+Design Rationale:
+We chose to design the app this way to balance its functionality and ease of use.
+We wanted the app to be able to handle multiple user profiles to maximize the
+app’s utility, but we also wanted its implementation to be intuitive and uncluttered.
+Additionally, sectioning off features into their own space within the app gives the
+app a clear organizational format and a way for users to access features efficiently
+and easily.
+
+Areas for Improvement:
+The current implementation of multiple profiles, while powerful for households
+sharing a device, could create unnecessary complexity for single users. The
+persistent profile selector and associated profile heading occupy valuable screen
+real estate and add an extra layer of interaction that may confuse or frustrate
+individual users. When a health tracking app is primarily personal - as many are -
+having to navigate between profiles or constantly see unused profile options could
+feel like interface clutter. This is particularly evident in how the system requires
+profile awareness across all features (goals, fitness, etc.), where a single user must
+repeatedly ensure they're working within their designated profile to prevent data
+misplacement.
+A potential solution might be to implement a "single user mode" during initial
+setup, which would hide the profile-switching interface entirely and streamline the
+experience for individual users. Alternatively, the app could default to a single
+profile view with the option to enable multiple profiles only when needed,
+following the principle of progressive disclosure. This would maintain the
+functionality for households while simplifying the interface for individual users
+who represent a significant portion of the target audience.
+A few less fundamental things that we could implement in our design include
+improvements to: data visualization, form layout, list management, and responsive
+design.
+For data visualization, the progress tracking section could benefit from better
+vertical organization of historical data. Currently, the app lacks robust visualization
+tools that could show trends over time in a vertically scrollable format. Data
+visualization is a useful measure of progress and a valuable tool for users.
+For a grouped form layout, we can alter the existing vertically organized form
+layout into a more intuitive grouped layout. This would be beneficial because
+similar fields will be grouped together and would be more clearly organized. For
+example, fitness tracking could group strength exercises separately from cardio
+activities, with clear visual separation.
+For list management, we can add sorting and filtering options that would make it
+easier for users to categorize entries and find what they are looking for. At the
+moment, all entries are simply listed with no options for the user to change what is
+included or its ordering.
+For responsive design, we could ensure that the app is adaptable to different screen
+sizes. Some elements, particularly the input forms and lists, could be more
+responsive to maintain usability on both narrow mobile screens and wide desktop
+displays.
+
+
+
