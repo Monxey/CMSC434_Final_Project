@@ -79,7 +79,31 @@ main {
 
 #sex {
     padding: 8px;
-    width: 100%;
+    width: 50%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#goalType {
+    padding: 8px;
+    width: 25%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#exerciseType {
+    padding: 8px;
+    width: 25%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#goalDate {
+    padding: 8px;
+    width: 50%;
     box-sizing: border-box;
     margin-bottom: 10px;
 }

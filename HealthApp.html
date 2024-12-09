@@ -56,7 +56,7 @@
                     
                     <div class="flex-container">
                         <label for="sex">Assigned Sex at Birth:</label>
-                            <select id="sex" name="sex" required>
+                        <select id="sex" name="sex" required>
                             <option value="">Select...</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -81,20 +81,58 @@
                     <button type="button" onclick="saveProfile()">Save Profile</button>
                 </form>
             </div>
+
             <!--Operations for the goals tab-->
             <div id="goals" class="tab" style="display:none;">
-                <h2>Goals</h2>
+                <h2>Health Goals</h2>
                 <form id="goalForm">
-                    <label for="goalDescription">Goal Description:</label>
-                    <input type="text" id="goalDescription" name="goalDescription">
-                    <label for="goalDate">Final Date:</label>
+                    <h3>Set Your Goals</h3>
+                    
+                    <label for="goalType">Type of Goal:</label>
+                    <select id = "goalType" name = "goalType" onchange="updateGoalType()">
+                        <option value="Exercise">Exercise</option>
+                        <option value="Diet">Diet</option>
+                    </select>
+
+                    <!-- Exercise Goals Section -->
+                    <fieldset class = "goal-fieldset" id = "exercise_fieldset" style="display:block;">
+                        <legend>Exercise Goal</legend>
+                        <label for="exerciseType">Type of Exercise:</label>
+                        <select id="exerciseType" name="exerciseType">
+                            <option value="cardio">Cardio</option>
+                            <option value="strength">Strength Training</option>
+                            <option value="flexibility">Flexibility</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div></div>
+                        <label for="exerciseFrequency">Frequency (per week):</label>
+                        <input type="number" id="exerciseFrequency" name="exerciseFrequency" min="1" max="7">
+                    </fieldset>
+            
+                    <!-- Diet Goals Section -->
+                    <fieldset class = "goal-fieldset" id = "diet_fieldset" style="display:none;"> 
+                        <legend>Diet Goal</legend>
+                        <label for="calorieGoal">Daily Calorie Limit:</label>
+                        <input type="number" id="calorieGoal" name="calorieGoal" min="500" max="5000">
+                        <div></div>
+                        <label for="waterIntake">Daily Water Intake (liters):</label>
+                        <input type="number" id="waterIntake" name="waterIntake" step="0.1" min="0.5" max="5">
+                    </fieldset>
+            
+                    <label for="goalDate">Goal Deadline:</label>
                     <input type="date" id="goalDate" name="goalDate">
+            
                     <button type="button" onclick="addGoal()">Add Goal</button>
                 </form>
+            
                 <button type="button" onclick="clearGoals()">Clear All Goals</button>
+                
+                <h3>Your Goals</h3>
                 <ul id="goalList" class="goal-list">
+                    <!-- Goals will be dynamically added here -->
                 </ul>
             </div>
+            
             <!--Operations for the fitness tab-->
             <div id="fitness" class="tab" style="display:none;">
                 <h2>Fitness</h2>
