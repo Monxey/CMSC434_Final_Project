@@ -11,6 +11,7 @@
 </head>
 <body>
     <!--Tabs and the corresponding icons for the tabs-->
+    
     <div class="container">
         <header>
         </header>
@@ -44,111 +45,197 @@
                 </div>
                 <!--Questions for the user to input for the profile-->
                 <form id="profileForm">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                    <label for="sex">Assigned Sex at Birth:</label>
-                    <select id="sex" name="sex" required>
-                        <option value="">Select...</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" name="age" min="0" required>
-                    <label for="weight">Weight in lbs:</label>
-                    <input type="number" id="weight" name="weight" min="0" required>
-                    <label for="height">Height in inches:</label>
-                    <input type="number" id="height" name="height" min="0" required>
+                    <div class="flex-container">
+                        <label for="name">First Name:</label>
+                        <input class = "profile-input-1" type="text" id="first_name" name="name" required>
+                    </div>
+                    
+                    <div class="flex-container">
+                        <label for="name">Last Name:</label>
+                        <input class = "profile-input-1" type="text" id="last_name" name="name" required>
+                    </div>
+                    
+                    <div class="flex-container">
+                        <label for="sex">Assigned Sex at Birth:</label>
+                        <select id="sex" name="sex" required>
+                            <option value="">Select...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex-container">
+                        <label for="age">Age:</label>
+                        <input class = "profile-input-1" type="number" id="age" name="age" min="0" required>
+                        <label for="weight">Weight - lbs:</label>
+                        <input class = "profile-input-1" type="number" id="weight" name="weight" min="0" required>
+                    </div>
+
+                    <div class="flex-container">
+                        <label for="height">Height - Feet:</label>
+                        <input class = "profile-input-2" type="number" id="height" name="height" min="0" required>
+
+                        <label for="height">Height - Inches:</label>
+                        <input class = "profile-input-2" type="number" id="height" name="height" min="0" required>
+                    </div>
+
                     <button type="button" onclick="saveProfile()">Save Profile</button>
                 </form>
             </div>
+
             <!--Operations for the goals tab-->
             <div id="goals" class="tab" style="display:none;">
-                <h2>Goals</h2>
+                <h2>Health Goals</h2>
                 <form id="goalForm">
-                    <label for="goalDescription">Goal Description:</label>
-                    <input type="text" id="goalDescription" name="goalDescription">
-                    <label for="goalDate">Final Date:</label>
+                    <label for="goalType">Type of Goal:</label>
+                    <select id = "goalType" name = "goalType" onchange="updateGoalType()">
+                        <option value="Exercise">Exercise</option>
+                        <option value="Diet">Diet</option>
+                    </select>
+
+                    <!-- Exercise Goals Section -->
+                    <fieldset class = "goal-fieldset" id = "exercise_fieldset" style="display:block;">
+                        <legend>Exercise Goal</legend>
+                        <label for="exerciseType">Type of Exercise:</label>
+                        <select id="exerciseType" name="exerciseType">
+                            <option value="cardio">Cardio</option>
+                            <option value="strength">Strength Training</option>
+                            <option value="flexibility">Flexibility</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div></div>
+                        <label for="exerciseFrequency">Frequency (per week):</label>
+                        <input type="number" id="exerciseFrequency" name="exerciseFrequency" min="1" max="7">
+                    </fieldset>
+            
+                    <!-- Diet Goals Section -->
+                    <fieldset class = "goal-fieldset" id = "diet_fieldset" style="display:none;"> 
+                        <legend>Diet Goal</legend>
+                        <label for="calorieGoal">Daily Calorie Limit:</label>
+                        <input type="number" id="calorieGoal" name="calorieGoal" min="500" max="5000">
+                        <div></div>
+                        <label for="waterIntake">Daily Water Intake (liters):</label>
+                        <input type="number" id="waterIntake" name="waterIntake" step="0.1" min="0.5" max="5">
+                    </fieldset>
+            
+                    <label for="goalDate">Goal Deadline:</label>
                     <input type="date" id="goalDate" name="goalDate">
+            
                     <button type="button" onclick="addGoal()">Add Goal</button>
                 </form>
+            
                 <button type="button" onclick="clearGoals()">Clear All Goals</button>
+                
+                <h3>Your Goals</h3>
                 <ul id="goalList" class="goal-list">
+                    <!-- Goals will be dynamically added here -->
                 </ul>
             </div>
+            
             <!--Operations for the fitness tab-->
             <div id="fitness" class="tab" style="display:none;">
-                <h2>Fitness</h2>
-                <form id="fitnessForm">
-                    <label for="exercise">Exercise:</label>
-                    <input type="text" id="exercise" name="exercise">
-                    <label for="sets">Sets:</label>
-                    <input type="number" id="sets" name="sets">
-                    <label for="reps">Reps:</label>
-                    <input type="number" id="reps" name="reps">
-                    <label for="weightUsed">Weight in lbs:</label>
-                    <input type="number" id="weightUsed" name="weightUsed">
-                    <button type="button" onclick="addExercise()">Add Exercise</button>
+                <h2>Fitness Tracker</h2>
+                <form id="fitnessForm" style="margin-bottom: 20px;">
+                    <div>
+                        <label for="exercise">Choose an Exercise:</label>
+                        <select id="exercise" name="exercise" onchange="toggleExerciseFields()" style="width:80px; height:40px;">
+                            <option value="" disabled selected>Select an exercise</option>
+                            <option value="pushups">Push-ups (No weight)</option>
+                            <option value="squats">Squats</option>
+                            <option value="bench_press">Bench Press</option>
+                            <option value="deadlift">Deadlift</option>
+                            <option value="running">Running (No sets/reps/weight)</option>
+                        </select>
+                    </div>
+                    
+            
+                    <!-- Hidden by default -->
+                    <div id="exerciseFields" style="margin-top: 10px;">
+                        <label for="sets">Sets:</label>
+                        <input type="number" id="sets" name="sets" style="width: 80px;">
+            
+                        <label for="reps">Reps:</label>
+                        <input type="number" id="reps" name="reps" style="width: 80px;">
+            
+                        <label for="weightUsed">Weight (lbs):</label>
+                        <input type="number" id="weightUsed" name="weightUsed" style="width: 100px;">
+                    </div>
+
+                    <div id = "pushupFields" style="display:none; margin-top: 10px;">
+                        <label for="sets">Sets:</label>
+                        <input type="number" id="sets" name="sets" placeholder="Enter sets" style="width: 80px;">
+                        <label for="reps">Reps:</label>
+                        <input type="number" id="reps" name="reps" placeholder="Enter reps" style="width: 80px;">
+                    </div>
+            
+                    <button type="button" onclick="addExercise()" style="margin-top: 10px;">Add Exercise</button>
                 </form>
+            
                 <h3>Cardio</h3>
-                <label for="distance">Distance in miles:</label>
-                <input type="number" id="distance" name="distance">
+                <label for="distance">Log Distance (miles):</label>
+                <input type="number" id="distance" name="distance" placeholder="Enter distance" style="width: 120px;">
                 <button type="button" onclick="logDistance()">Log Distance</button>
+            
+                <h3>Exercise Log</h3>
                 <ul id="fitnessList"></ul>
+            
+                <h3>Cardio Log</h3>
                 <ul id="distanceList"></ul>
-            </div>
+            </div>            
+
             <!--Diet for breakfast, lunch, and dinner and calorie input for each meal-->
             <div id="diet" class="tab" style="display:none;">
                 <h2>Meal Tracker</h2>
-                <div class="meal-section">
+                <div class="meal-section" style="border: 1px solid #000000; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
                     <h3>What did you eat for breakfast?</h3>
                     <div class="meal-input">
-                        <input type="text" id="breakfast-food" placeholder="Food item">
-                        <div class="slider-container">
-                            <label>How many calories (Enter a number)? <span id="breakfast-cal-value">0</span></label>
-                            <input type="range" id="breakfast-calories" min="0" max="1000" value="0" class="slider">
+                        <input type="text" id="breakfast-food" placeholder="Food item" style="margin-bottom: 10px;">
+                        <div class="number-container">
+                            <label>How many calories?</label>
+                            <input type="number" id="breakfast-calories" min="0" value="0" style="width: 100px;">
                         </div>
                         <button type="button" onclick="addMeal('breakfast')">Add Food</button>
                     </div>
                     <ul id="breakfast-list" class="meal-list"></ul>
                 </div>
-                <div class="meal-section">
+                <div class="meal-section" style="border: 1px solid #000000; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
                     <h3>What did you eat for lunch?</h3>
                     <div class="meal-input">
-                        <input type="text" id="lunch-food" placeholder="Food item">
-                        <div class="slider-container">
-                            <label>How many calories (Enter a number)? <span id="lunch-cal-value">0</span></label>
-                            <input type="range" id="lunch-calories" min="0" max="1000" value="0" class="slider">
+                        <input type="text" id="lunch-food" placeholder="Food item" style="margin-bottom: 10px;">
+                        <div class="number-container">
+                            <label>How many calories?</label>
+                            <input type="number" id="lunch-calories" min="0" value="0" style="width: 100px;">
                         </div>
                         <button type="button" onclick="addMeal('lunch')">Add Food</button>
                     </div>
                     <ul id="lunch-list" class="meal-list"></ul>
                 </div>
-                <div class="meal-section">
+                <div class="meal-section" style="border: 1px solid #000000; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
                     <h3>What did you eat for dinner?</h3>
                     <div class="meal-input">
-                        <input type="text" id="dinner-food" placeholder="Food item">
-                        <div class="slider-container">
-                            <label>How many calories (Enter a number)? <span id="dinner-cal-value">0</span></label>
-                            <input type="range" id="dinner-calories" min="0" max="1000" value="0" class="slider">
+                        <input type="text" id="dinner-food" placeholder="Food item" style="margin-bottom: 10px;">
+                        <div class="number-container">
+                            <label>How many calories?</label>
+                            <input type="number" id="dinner-calories" min="0" value="0" style="width: 100px;">
                         </div>
                         <button type="button" onclick="addMeal('dinner')">Add Food</button>
                     </div>
                     <ul id="dinner-list" class="meal-list"></ul>
                 </div>
-                <!--Calorie progress tracker-->
+                <!-- Calorie progress tracker -->
                 <div class="calorie-summary">
-                    <h3>Calorie progress</h3>
+                    <h3>Calorie Progress</h3>
                     <div class="progress-container">
                         <progress id="calorie-progress" value="0" max="2000"></progress>
                         <span id="calorie-display">0/2000 calories</span>
                     </div>
                 </div>
-                <!--Water intake tracker-->
+                <!-- Water intake tracker -->
                 <div class="water-tracking">
                     <h3>Water Intake</h3>
-                    <div class="slider-container">
-                        <label>Water in oz: <span id="water-value">0</span></label>
-                        <input type="range" id="water-slider" min="0" max="16" value="0" step="1" class="slider">
+                    <div class="number-container">
+                        <label>Water in oz:</label>
+                        <input type="number" id="water-slider" min="0" max="128" value="0" style="width: 100px;">
                         <button onclick="addWater()">Add oz</button>
                     </div>
                     <div class="progress-container">
@@ -157,19 +244,21 @@
                     </div>
                 </div>
             </div>
+
             <!--Progress chart with chart options for calorie consumption, water intake, overall strength, miles walked.-->
             <div id="progress" class="tab" style="display: none;">
                 <div class="progress-controls">
                     <label for="progressOptions">Track Progress For:</label>
-                    <select name="progressOptions" id="progressOption" onchange="updateProgressChart()">
+                    <select name="progressOptions" id="progressOption" onchange="updateProgressChart()" style="width: 160px; height: 40px;">
                         <option value="calories">Calorie Consumption</option>
                         <option value="water">Water Intake</option>
                         <option value="strength">Overall Strength</option>
                         <option value="cardio">Miles Walked</option>
                     </select>
+                    <div></div>
                     <!--Time range for viewing the graph during different points in time-->
                     <label for="timeRange">Time Range:</label>
-                    <select name="timeRange" id="timeRange" onchange="updateProgressChart()">
+                    <select name="timeRange" id="timeRange" onchange="updateProgressChart()" style="width: 160px; height: 40px;">
                         <option value="week">In the Last Week</option>
                         <option value="month">In the last Month</option>
                         <option value="year">In the last Year</option>

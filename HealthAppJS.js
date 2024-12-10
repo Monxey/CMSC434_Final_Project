@@ -41,15 +41,31 @@ function switchProfile(profileNum) {
     loadDistances();
 }
 
+function updateGoalType() {
+    const currentGoalType = document.getElementById('goalType').value;
+
+    document.querySelectorAll('.goal-fieldset').forEach(fieldset => {
+        fieldset.style.display = 'none';
+    });
+
+    if(currentGoalType == "Exercise") {
+        document.getElementById('exercise_fieldset').style.display = 'block';
+    }
+    else {
+        document.getElementById('diet_fieldset').style.display = 'block';
+    }
+    
+}
 
 function saveProfile() {
-    const name = document.getElementById('name').value;
+    const first_name = document.getElementById('first_name').value;
+    const last_name = document.getElementById('last_name').value
     const sex = document.getElementById('sex').value;
     const age = document.getElementById('age').value;
     const weight = document.getElementById('weight').value;
     const height = document.getElementById('height').value;
     
-    if (!name||!sex||!age||!weight||!height) {
+    if (!first_name||!last_name||!sex||!age||!weight||!height) {
         alert('You must fill in all fields');
         return;
     }
@@ -205,41 +221,71 @@ function removeExercise(index) {
     loadExercises();
 }
 
+
+// Toggles visibility of sets/reps/weight fields based on exercise selection
+function toggleExerciseFields() {
+    const exercise = document.getElementById('exercise').value;
+    const exerciseFields = document.getElementById('exerciseFields');
+    const pushupFields = document.getElementById('pushupFields');
+    
+    if (exercise === 'running') {
+        exerciseFields.style.display = 'none'; // No sets/reps/weight needed
+    }
+    else if(exercise == 'pushups') {
+        exerciseFields.style.display = 'none'; 
+        pushupFields.style.display = 'block'
+    }
+    else {
+        exerciseFields.style.display = 'block'; // Show fields for applicable exercises
+        pushupFields.style.display = 'none'
+    }
+}
+
+// Adds an exercise to the exercise log
+function addExercise() {
+    const exercise = document.getElementById('exercise').value;
+    const sets = document.getElementById('sets').value;
+    const reps = document.getElementById('reps').value;
+    const weight = document.getElementById('weightUsed').value;
+
+    if (sets<0||reps<0||weightUsed<0) {
+        alert('You must enter valid positive values for sets, reps, and weight.');
+        return;
+    }
+
+    const fitnessList = document.getElementById('fitnessList');
+    const li = document.createElement('li');
+
+    if (exercise === 'running' || exercise === 'pushups') {
+        li.textContent = `${exercise.replace('_', ' ')} - No sets/reps/weight`;
+    } else {
+        li.textContent = `${exercise.replace('_', ' ')} - ${sets} sets of ${reps} reps with ${weight} lbs`;
+    }
+
+    fitnessList.appendChild(li);
+
+    // Clear fields
+    document.getElementById('exerciseForm').reset();
+    toggleExerciseFields();
+}
+
+// Logs distance in miles for cardio
 function logDistance() {
     const distance = document.getElementById('distance').value;
+
     if (distance < 0) {
         alert('You must enter a valid positive number for distance.');
         return;
     }
-    const profiles = JSON.parse(localStorage.getItem('profiles'));
-    const profile = profiles[currentProfile-1];
-    if (!profile.distances) {
-        profile.distances = [];
-    }
-    profile.distances.push(distance);
-    localStorage.setItem('profiles', JSON.stringify(profiles));
-    loadDistances();
+    const distanceList = document.getElementById('distanceList');
+    const li = document.createElement('li');
+    li.textContent = `Ran ${distance} miles`;
+    distanceList.appendChild(li);
+
+    // Clear distance input
     document.getElementById('distance').value = '';
 }
 
-function loadDistances() {
-    const profiles = JSON.parse(localStorage.getItem('profiles'));
-    const profile = profiles[currentProfile-1];
-    const distanceList = document.getElementById('distanceList');
-    distanceList.innerHTML = '';
-
-    if (profile.distances) {
-        profile.distances.forEach((distance, index) => {
-            const li = document.createElement('li');
-            li.textContent = `Distance: ${distance} miles`;
-            const removeButton = document.createElement('button');
-            removeButton.textContent = 'Remove';
-            removeButton.onclick = () => removeDistance(index);
-            li.appendChild(removeButton);
-            distanceList.appendChild(li);
-        });
-    }
-}
 
 function removeDistance(i) {
     const profiles = JSON.parse(localStorage.getItem('profiles'));
@@ -443,25 +489,51 @@ function updateProgressChart() {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: yAxisLabel
+                        text: yAxisLabel,
+                        font: {
+                            size: 24
+                        }
                     }
                 },
                 x: {
                     title: {
                         display: true,
-                        text: 'Date'
+                        text: 'Date',
+                        font: {
+                            size: 24
+                        }
                     }
                 }
             },
             plugins: {
                 title: {
                     display: true,
-                    text: title
+                    text: title,
+                    font: {
+                        size: 36
+                    }
                 }
             }
         }
     });
 }
+
+const inputField = document.getElementById('typingInput');
+const keyboardImage = document.getElementById('keyboardImage');
+let typingTimeout;
+
+    // Show the keyboard image when typing starts
+inputField.addEventListener('input', () => {
+    keyboardImage.style.display = 'block';
+
+    // Clear any existing timeout to reset the delay
+    clearTimeout(typingTimeout);
+
+    // Hide the image after 1 second of no typing
+    typingTimeout = setTimeout(() => {
+            keyboardImage.style.display = 'none';
+    }, 1000);
+});
 
 
 function getDailyCalories(profile, startDate, endDate) {

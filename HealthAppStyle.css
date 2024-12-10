@@ -5,13 +5,17 @@ body {
     padding: 0;
 }
 
+div {
+    margin-bottom: 10px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     width: 540px;
     height: 960px;
     margin: auto;
-    background: #ffffff;
+    background: #ecfdff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -33,34 +37,33 @@ header {
 
 nav {
     display: flex;
-    justify-content: space-around;
     background-color: #84bdbc;
-    padding: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 0px;
 }
 
 nav button {
-    background: none;
-    border: none;
     cursor: pointer;
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px; 
+    
     box-sizing: content-box;
 }
 
 nav button.active {
-    background-color: #78b4ba;
+    background-color: #38abb6;
 }
 
 nav button:active {
-    background-color: #78b4ba;
+    background-color: #38abb6;
     transform: scale(0.95);
 }
 
 nav button:hover {
-    background-color: #78b4ba;
+    background-color: #38abb6;
 }
 
 main {
@@ -75,7 +78,31 @@ main {
 
 #sex {
     padding: 8px;
-    width: 100%;
+    width: 50%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#goalType {
+    padding: 8px;
+    width: 25%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#exerciseType {
+    padding: 8px;
+    width: 25%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#goalDate {
+    padding: 8px;
+    width: 50%;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
@@ -87,9 +114,9 @@ form {
 }
 
 input[type="text"], input[type="number"], input[type="date"] {
-    padding: 8px;
-    width: 100%;
+    padding: 4px;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
 .complete-button {
@@ -103,15 +130,16 @@ input[type="text"], input[type="number"], input[type="date"] {
 
 button {
     padding: 15px;
+    font-size: 16px;
     background-color: #84bdbc;
-    color: white;
+    color: rgb(0, 0, 0);
     border: none;
     cursor: pointer;
     margin: 5px;
 }
 
 button:hover {
-    background-color: #78b4ba;
+    background-color: #38abb6;
 }
 
 ul {
@@ -121,7 +149,7 @@ ul {
 }
 
 li {
-    background: #ddd;
+    background: #ffffff;
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
@@ -133,6 +161,10 @@ li {
 
 label {
     margin: 5px;
+}
+
+.margin_spec_1 {
+    margin-right: 50px
 }
 
 .profile-selector {
@@ -147,7 +179,7 @@ label {
 }
 
 .profile-btn.active {
-    background-color: #78b4ba;
+    background-color: #38abb6;
 }
 
 #diet.tab {
@@ -156,7 +188,7 @@ label {
 }
 
 .meal-section {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 20px;
@@ -170,7 +202,7 @@ label {
 .goal-list li {
     margin: 10px 0;
     padding: 15px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -191,5 +223,17 @@ label {
     color: #666;
     font-style: italic;
     margin-left: 10px;
+}
+
+.profile-input-1 {
+    width: 120px;
+    margin-right: 50px;
+    margin-bottom: 25;
+}
+
+.profile-input-2 {
+    width: 50px;
+    margin-right: 50px;
+    margin-bottom: 25;
 }
 
