@@ -5,10 +5,6 @@ body {
     padding: 0;
 }
 
-div {
-    margin-bottom: 10px;
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -55,16 +51,16 @@ nav button {
 }
 
 nav button.active {
-    background-color: #38abb6;
+    background-color: #78b4ba;
 }
 
 nav button:active {
-    background-color: #38abb6;
+    background-color: #78b4ba;
     transform: scale(0.95);
 }
 
 nav button:hover {
-    background-color: #38abb6;
+    background-color: #78b4ba;
 }
 
 main {
@@ -79,31 +75,7 @@ main {
 
 #sex {
     padding: 8px;
-    width: 50%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-#goalType {
-    padding: 8px;
-    width: 25%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-#exerciseType {
-    padding: 8px;
-    width: 25%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-#goalDate {
-    padding: 8px;
-    width: 50%;
+    width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
@@ -115,9 +87,9 @@ form {
 }
 
 input[type="text"], input[type="number"], input[type="date"] {
-    padding: 4px;
+    padding: 8px;
+    width: 100%;
     box-sizing: border-box;
-    font-size: 16px;
 }
 
 .complete-button {
@@ -131,16 +103,15 @@ input[type="text"], input[type="number"], input[type="date"] {
 
 button {
     padding: 15px;
-    font-size: 16px;
     background-color: #84bdbc;
-    color: rgb(0, 0, 0);
+    color: white;
     border: none;
     cursor: pointer;
     margin: 5px;
 }
 
 button:hover {
-    background-color: #38abb6;
+    background-color: #78b4ba;
 }
 
 ul {
@@ -164,10 +135,6 @@ label {
     margin: 5px;
 }
 
-.margin_spec_1 {
-    margin-right: 50px
-}
-
 .profile-selector {
     display: flex;
     justify-content: space-between;
@@ -180,7 +147,7 @@ label {
 }
 
 .profile-btn.active {
-    background-color: #38abb6;
+    background-color: #78b4ba;
 }
 
 #diet.tab {
@@ -224,17 +191,5 @@ label {
     color: #666;
     font-style: italic;
     margin-left: 10px;
-}
-
-.profile-input-1 {
-    width: 120px;
-    margin-right: 50px;
-    margin-bottom: 25;
-}
-
-.profile-input-2 {
-    width: 50px;
-    margin-right: 50px;
-    margin-bottom: 25;
 }
 

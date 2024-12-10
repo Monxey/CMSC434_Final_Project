@@ -44,95 +44,37 @@
                 </div>
                 <!--Questions for the user to input for the profile-->
                 <form id="profileForm">
-                    <div class="flex-container">
-                        <label for="name">First Name:</label>
-                        <input class = "profile-input-1" type="text" id="first_name" name="name" required>
-                    </div>
-                    
-                    <div class="flex-container">
-                        <label for="name">Last Name:</label>
-                        <input class = "profile-input-1" type="text" id="last_name" name="name" required>
-                    </div>
-                    
-                    <div class="flex-container">
-                        <label for="sex">Assigned Sex at Birth:</label>
-                        <select id="sex" name="sex" required>
-                            <option value="">Select...</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    
-                    <div class="flex-container">
-                        <label for="age">Age:</label>
-                        <input class = "profile-input-1" type="number" id="age" name="age" min="0" required>
-                        <label for="weight">Weight - lbs:</label>
-                        <input class = "profile-input-1" type="number" id="weight" name="weight" min="0" required>
-                    </div>
-
-                    <div class="flex-container">
-                        <label for="height">Height - Feet:</label>
-                        <input class = "profile-input-2" type="number" id="height" name="height" min="0" required>
-
-                        <label for="height">Height - Inches:</label>
-                        <input class = "profile-input-2" type="number" id="height" name="height" min="0" required>
-                    </div>
-
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="sex">Assigned Sex at Birth:</label>
+                    <select id="sex" name="sex" required>
+                        <option value="">Select...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" min="0" required>
+                    <label for="weight">Weight in lbs:</label>
+                    <input type="number" id="weight" name="weight" min="0" required>
+                    <label for="height">Height in inches:</label>
+                    <input type="number" id="height" name="height" min="0" required>
                     <button type="button" onclick="saveProfile()">Save Profile</button>
                 </form>
             </div>
-
             <!--Operations for the goals tab-->
             <div id="goals" class="tab" style="display:none;">
-                <h2>Health Goals</h2>
+                <h2>Goals</h2>
                 <form id="goalForm">
-                    <h3>Set Your Goals</h3>
-                    
-                    <label for="goalType">Type of Goal:</label>
-                    <select id = "goalType" name = "goalType" onchange="updateGoalType()">
-                        <option value="Exercise">Exercise</option>
-                        <option value="Diet">Diet</option>
-                    </select>
-
-                    <!-- Exercise Goals Section -->
-                    <fieldset class = "goal-fieldset" id = "exercise_fieldset" style="display:block;">
-                        <legend>Exercise Goal</legend>
-                        <label for="exerciseType">Type of Exercise:</label>
-                        <select id="exerciseType" name="exerciseType">
-                            <option value="cardio">Cardio</option>
-                            <option value="strength">Strength Training</option>
-                            <option value="flexibility">Flexibility</option>
-                            <option value="other">Other</option>
-                        </select>
-                        <div></div>
-                        <label for="exerciseFrequency">Frequency (per week):</label>
-                        <input type="number" id="exerciseFrequency" name="exerciseFrequency" min="1" max="7">
-                    </fieldset>
-            
-                    <!-- Diet Goals Section -->
-                    <fieldset class = "goal-fieldset" id = "diet_fieldset" style="display:none;"> 
-                        <legend>Diet Goal</legend>
-                        <label for="calorieGoal">Daily Calorie Limit:</label>
-                        <input type="number" id="calorieGoal" name="calorieGoal" min="500" max="5000">
-                        <div></div>
-                        <label for="waterIntake">Daily Water Intake (liters):</label>
-                        <input type="number" id="waterIntake" name="waterIntake" step="0.1" min="0.5" max="5">
-                    </fieldset>
-            
-                    <label for="goalDate">Goal Deadline:</label>
+                    <label for="goalDescription">Goal Description:</label>
+                    <input type="text" id="goalDescription" name="goalDescription">
+                    <label for="goalDate">Final Date:</label>
                     <input type="date" id="goalDate" name="goalDate">
-            
                     <button type="button" onclick="addGoal()">Add Goal</button>
                 </form>
-            
                 <button type="button" onclick="clearGoals()">Clear All Goals</button>
-                
-                <h3>Your Goals</h3>
                 <ul id="goalList" class="goal-list">
-                    <!-- Goals will be dynamically added here -->
                 </ul>
             </div>
-            
             <!--Operations for the fitness tab-->
             <div id="fitness" class="tab" style="display:none;">
                 <h2>Fitness</h2>
@@ -225,7 +167,6 @@
                         <option value="strength">Overall Strength</option>
                         <option value="cardio">Miles Walked</option>
                     </select>
-                    <div></div>
                     <!--Time range for viewing the graph during different points in time-->
                     <label for="timeRange">Time Range:</label>
                     <select name="timeRange" id="timeRange" onchange="updateProgressChart()">

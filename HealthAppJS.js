@@ -41,31 +41,15 @@ function switchProfile(profileNum) {
     loadDistances();
 }
 
-function updateGoalType() {
-    const currentGoalType = document.getElementById('goalType').value;
-
-    document.querySelectorAll('.goal-fieldset').forEach(fieldset => {
-        fieldset.style.display = 'none';
-    });
-
-    if(currentGoalType == "Exercise") {
-        document.getElementById('exercise_fieldset').style.display = 'block';
-    }
-    else {
-        document.getElementById('diet_fieldset').style.display = 'block';
-    }
-    
-}
 
 function saveProfile() {
-    const first_name = document.getElementById('first_name').value;
-    const last_name = document.getElementById('last_name').value
+    const name = document.getElementById('name').value;
     const sex = document.getElementById('sex').value;
     const age = document.getElementById('age').value;
     const weight = document.getElementById('weight').value;
     const height = document.getElementById('height').value;
     
-    if (!first_name||!last_name||!sex||!age||!weight||!height) {
+    if (!name||!sex||!age||!weight||!height) {
         alert('You must fill in all fields');
         return;
     }
